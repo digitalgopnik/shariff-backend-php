@@ -30,8 +30,11 @@ jobs:
       - name: Install dependencies
         run: composer install --no-progress
 
+      - name: Codesniffer
+        run: vendor/bin/phpcs --colors
+
       - name: Php-Cs-Fixer
-        run: vendor/bin/php-cs-fixer fix --dry-run --diff --verbose
+        run: vendor/bin/php-cs-fixer fix --colors --dry-run --diff
 
       - name: Unit-testing
-        run: vendor/bin/phpunit --verbose
+        run: vendor/bin/phpunit --colors=always --verbose

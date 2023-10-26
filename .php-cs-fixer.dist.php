@@ -11,7 +11,8 @@ return $config
         // no leading import-backslash
         // https://cs.symfony.com/doc/rules/import/global_namespace_import.html
         '@Symfony' => true,
-        'trailing_comma_in_multiline' => ['elements' => ['arrays', 'arguments', 'parameters']],
+        // TODO: enable this rule, when we dropped php7.4
+        // 'trailing_comma_in_multiline' => ['elements' => ['arrays', 'arguments', 'parameters']],
         'ordered_imports' => ['imports_order' => ['class', 'const', 'function'], 'sort_algorithm' => 'alpha'],
         // https://cs.symfony.com/doc/rules/operator/concat_space.html
         'concat_space' => ['spacing' => 'one'],

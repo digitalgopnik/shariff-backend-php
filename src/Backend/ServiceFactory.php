@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Heise\Shariff\Backend;
 
@@ -19,32 +19,20 @@ class ServiceFactory
      */
     protected $serviceMap = [];
 
-    /**
-     * @param ClientInterface $client
-     */
     public function __construct(ClientInterface $client)
     {
         $this->client = $client;
     }
 
-    /**
-     * @param string $name
-     * @param ServiceInterface $service
-     */
     public function registerService(string $name, ServiceInterface $service): void
     {
         $this->serviceMap[$name] = $service;
     }
 
-    /**
-     * @param array $serviceNames
-     * @param array $config
-     *
-     * @return array
-     */
     public function getServicesByName(array $serviceNames, array $config): array
     {
         $services = [];
+
         foreach ($serviceNames as $serviceName) {
             try {
                 $service = $this->createService($serviceName, $config);
@@ -57,19 +45,13 @@ class ServiceFactory
         return $services;
     }
 
-    /**
-     * @param string $serviceName
-     * @param array $config
-     *
-     * @return ServiceInterface
-     */
     protected function createService(string $serviceName, array $config): ServiceInterface
     {
         if (isset($this->serviceMap[$serviceName])) {
             $service = $this->serviceMap[$serviceName];
-        }
-        else {
+        } else {
             $serviceClass = '\\Heise\\Shariff\\Backend\\' . $serviceName;
+
             if (!class_exists($serviceClass)) {
                 throw new \InvalidArgumentException('Invalid service name "' . $serviceName . '".');
             }

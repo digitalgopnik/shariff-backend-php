@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Heise\Shariff;
 
@@ -18,8 +18,6 @@ class LaminasCache implements CacheInterface
     protected $cache;
 
     /**
-     * @param array $configuration
-     *
      * @throws \Laminas\Cache\Exception\InvalidArgumentException
      * @throws \Laminas\Cache\Exception\RuntimeException
      */
@@ -35,7 +33,7 @@ class LaminasCache implements CacheInterface
 
         $cache = StorageFactory::factory([
             'adapter' => [
-                'name' => $configuration['adapter'],
+                'name'    => $configuration['adapter'],
                 'options' => $configuration['adapterOptions'],
             ],
         ]);
@@ -55,25 +53,16 @@ class LaminasCache implements CacheInterface
         $this->cache = $cache;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setItem(string $key, string $content): void
     {
         $this->cache->setItem($key, $content);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getItem(string $key): string
     {
         return $this->cache->getItem($key);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasItem(string $key): bool
     {
         return $this->cache->hasItem($key);

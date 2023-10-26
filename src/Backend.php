@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Heise\Shariff;
 
@@ -17,18 +17,17 @@ class Backend
      */
     protected $backendManager;
 
-    /**
-     * @param array $config
-     */
     public function __construct(array $config)
     {
         $domains = $config['domains'];
+
         // stay compatible to old configs
         if (isset($config['domain'])) {
             $domains[] = $config['domain'];
         }
 
         $clientOptions = [];
+
         if (isset($config['client'])) {
             $clientOptions = $config['client'];
         }
@@ -37,8 +36,7 @@ class Backend
 
         if (isset($config['cacheClass'])) {
             $cacheClass = $config['cacheClass'];
-        }
-        else {
+        } else {
             $cacheClass = LaminasCache::class;
         }
         $cache = new $cacheClass($config['cache']);
@@ -54,8 +52,6 @@ class Backend
     }
 
     /**
-     * @param string $url
-     *
      * @return array|mixed|null
      */
     public function get(string $url)
@@ -63,9 +59,6 @@ class Backend
         return $this->backendManager->get($url);
     }
 
-    /**
-     * @param LoggerInterface $logger
-     */
     public function setLogger(LoggerInterface $logger): void
     {
         $this->backendManager->setLogger($logger);

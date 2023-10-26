@@ -3,7 +3,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="./vendor/squizlabs/php_codesniffer/phpcs.xsd">
 
-    <arg name="basepath" value="../../."/>
+    <arg name="basepath" value="."/>
     <arg name="cache" value=".phpcs-cache"/>
     <arg name="colors"/>
     <arg name="extensions" value="php"/>
@@ -13,7 +13,7 @@
     <arg value="p"/>
 
     <!-- paths to check -->
-    <file>../../src</file>
+    <file>src</file>
 
     <!-- include all rules from PSR-12 Coding Standard -->
     <rule ref="PSR12">
@@ -29,9 +29,6 @@
     <rule ref="Generic.ControlStructures.DisallowYodaConditions"/>
     <rule ref="Generic.Files.EndFileNewline"/>
     <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
-    <rule ref="Generic.Formatting.MultipleStatementAlignment">
-        <type>error</type>
-    </rule>
     <rule ref="Generic.Files.LineLength">
         <properties>
             <property name="lineLimit" value="120"/>
