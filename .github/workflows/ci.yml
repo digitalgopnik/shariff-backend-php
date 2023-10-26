@@ -1,0 +1,37 @@
+name: shariff-backend-php
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request: [ "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: alpine-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+
+      - name: Cache vendor
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Install dependencies
+        run: composer install --no-progress
+
+      - name: Php-Cs-Fixer
+        run: vendor/bin/php-cs-fixer fix --dry-run --diff --verbose
+
+      - name: Unit-testing
+        run: vendor/bin/phpunit --verbose
